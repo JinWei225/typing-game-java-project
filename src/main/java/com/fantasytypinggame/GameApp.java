@@ -88,7 +88,7 @@ public class GameApp extends Application {
         String[] gameState = { "MENU" };
         long[] countdownStart = { 0 };
         Castle castle = new Castle(100); // Castle total health is 100
-        WaveManager waveManager = new WaveManager(20); // Number of waves per game is 20
+        WaveManager waveManager = new WaveManager(30); // Number of waves per game is 20
         Player player = new Player(); // Initialize player object
         PowerUpManager powerUpManager = new PowerUpManager();
         ArrayList<DamageText> damageTexts = new ArrayList<>();
