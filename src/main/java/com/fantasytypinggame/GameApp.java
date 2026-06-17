@@ -62,11 +62,18 @@ public class GameApp extends Application {
     public void start(Stage stage) {
         this.primaryStage = stage;
         Group menuRoot = new Group();
+        Group instructionRoot = new Group();
         Group difficultyRoot = new Group();
         Group gameRoot = new Group();
         Group loseRoot = new Group();
         Group winRoot = new Group();
         Scene startScene = new Scene(menuRoot, 800, 600, Color.BEIGE);
+        Scene instructionScene = new Scene(
+            instructionRoot,
+            800,
+            600,
+            Color.BEIGE
+        );
         Scene difficultyScene = new Scene(
             difficultyRoot,
             800,
@@ -170,14 +177,59 @@ public class GameApp extends Application {
         });
         menuRoot.getChildren().add(startGameButton);
 
+        Button menuInstructionsButton = new Button("How to Play");
+        menuInstructionsButton.setLayoutX(356);
+        menuInstructionsButton.setLayoutY(300); // Placed between Start and Exit
+        menuInstructionsButton.setOnAction(event -> {
+            gameState[0] = "INSTRUCTIONS";
+            primaryStage.setScene(instructionScene);
+        });
+        menuRoot.getChildren().add(menuInstructionsButton);
+
         // Exit game button
         Button exitButton = new Button("Exit Game");
         exitButton.setLayoutX(360);
-        exitButton.setLayoutY(300);
+        exitButton.setLayoutY(350);
         exitButton.setOnAction(event -> {
             primaryStage.close();
         });
         menuRoot.getChildren().add(exitButton);
+
+        // Build Instruction View Content
+        Text instructTitleText = new Text("How to Play");
+        instructTitleText.setFont(Font.font("Verdana", 36));
+        instructTitleText.setFill(Color.BROWN);
+        instructTitleText.setX(300);
+        instructTitleText.setY(100);
+        instructionRoot.getChildren().add(instructTitleText);
+
+        Text instructBodyText = new Text(
+            "OBJECTIVE:\n" +
+                "   Defend your castle on the right. Survive all 30 waves to win!\n\n" +
+                "CONTROLS:\n" +
+                "   • Type words appearing above enemies to attack them.\n" +
+                "   • Press 'BACKSPACE' to fix typing mistakes.\n" +
+                "   • Press backslash '\\' to use earned Power-ups (Damage All, Slow, etc.).\n" +
+                "   • Press 'ESC' or click the Pause button to freeze the game.\n\n" +
+                "BONUS:\n" +
+                "   Maintain a continuous 10 typing Combo to automatically gain Power-ups!"
+        );
+        instructBodyText.setFont(Font.font("Verdana", 15));
+        instructBodyText.setX(100);
+        instructBodyText.setY(180);
+        instructBodyText.setLineSpacing(8);
+        instructionRoot.getChildren().add(instructBodyText);
+
+        // Backward Navigation Button Configuration**
+        Button instructBackButton = new Button("Back to Main Menu");
+        instructBackButton.setLayoutX(335);
+        instructBackButton.setLayoutY(500);
+        instructBackButton.setOnAction(event -> {
+            gameState[0] = "MENU";
+            primaryStage.setScene(startScene); // Swaps stage back to the default menu scene**
+        });
+
+        instructionRoot.getChildren().add(instructBackButton);
 
         // Difficulty screen title text
         Text difficultyText = new Text("Difficulty:");
@@ -409,6 +461,7 @@ public class GameApp extends Application {
                         if (enemy.getX() >= 600) {
                             castle.takeDamage(enemy.getDamage());
                             player.resetCombo(0);
+                            powerUpManager.resetLastComboMilestone();
                             iterator.remove();
                         } else {
                             enemy.move();

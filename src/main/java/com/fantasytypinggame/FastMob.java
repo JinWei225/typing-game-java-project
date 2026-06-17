@@ -10,12 +10,12 @@ public class FastMob extends Enemy {
     FastMob(
         double x,
         double y,
-        double speed,
+        double pace,
         int health,
         int damage,
         ArrayList<String> wordList
     ) {
-        super(x, y, speed, health, damage, wordList);
+        super(x, y, pace, health, damage, wordList);
     }
 
     @Override

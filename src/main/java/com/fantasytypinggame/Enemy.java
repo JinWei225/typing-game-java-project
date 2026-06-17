@@ -7,7 +7,7 @@ public abstract class Enemy {
 
     private double x;
     private double y;
-    private double speed;
+    private double pace;
     private int health;
     private int damage;
     private ArrayList<String> wordList = new ArrayList<String>();
@@ -15,14 +15,14 @@ public abstract class Enemy {
     Enemy(
         double x,
         double y,
-        double speed,
+        double pace,
         int health,
         int damage,
         ArrayList<String> wordList
     ) {
         this.x = x;
         this.y = y;
-        this.speed = speed;
+        this.pace = pace;
         this.health = health;
         this.damage = damage;
         this.wordList = wordList;
@@ -36,8 +36,8 @@ public abstract class Enemy {
         return this.y;
     }
 
-    public double getSpeed() {
-        return this.speed;
+    public double getPace() {
+        return this.pace;
     }
 
     public int getHealth() {
@@ -62,11 +62,11 @@ public abstract class Enemy {
     }
 
     public void applySpeedMultiplier(double multiplier) {
-        this.speed = this.speed * multiplier;
+        this.pace = this.pace * multiplier;
     }
 
     public void move() {
-        this.x = this.x + speed;
+        this.x = this.x + pace;
     }
 
     public void takeDamage(int amount) {
