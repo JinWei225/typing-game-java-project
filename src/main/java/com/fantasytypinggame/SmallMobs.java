@@ -64,8 +64,8 @@ public class SmallMobs extends Enemy {
 
     @Override
     public void render(GraphicsContext gc) {
-        double drawWidth = 98;
-        double drawHeight = 98;
+        double drawWidth = 113;
+        double drawHeight = 113;
 
         if (dying) {
             deathAnimator.draw(gc, getX(), getY(), drawWidth, drawHeight);
@@ -78,7 +78,7 @@ public class SmallMobs extends Enemy {
         String word = getCurrentWord();
         if (word != null) {
             gc.setFont(Font.font("Arial", FontWeight.BOLD, 16));
-            gc.setFill(Color.WHITE);
+            gc.setFill(isSlowed() ? Color.rgb(100, 210, 255) : Color.YELLOW);
 
             Text temp = new Text(word);
             temp.setFont(gc.getFont());

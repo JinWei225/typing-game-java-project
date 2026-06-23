@@ -21,9 +21,9 @@ public class PowerUpManager {
     // Timed effect state
     private boolean slowActive = false;
     private boolean doublePointsActive = false;
+    private boolean enemiesSlowed;
     private long slowEndTime = 0;
     private long doublePointsEndTime = 0;
-    private boolean enemiesSlowed = false;
 
     // Check combo and award a random power-up at each milestone
     public void checkCombo(int combo) {
@@ -60,7 +60,6 @@ public class PowerUpManager {
             case SLOW_ENEMIES:
                 this.slowActive = true;
                 this.slowEndTime = now + EFFECT_DURATION_NS;
-                this.enemiesSlowed = false; // Mark for application next update
                 break;
             case DOUBLE_POINTS:
                 this.doublePointsActive = true;
@@ -72,15 +71,25 @@ public class PowerUpManager {
 
     // applying/reverting timed effects handler
     public void update(ArrayList<Enemy> enemies, long now) {
-        // Apply slow to enemies if not yet applied this activation
-        if (this.slowActive && !this.enemiesSlowed) {
-            for (Enemy e : enemies) e.applySpeedMultiplier(0.5);
+        // Slow any enemy not yet affected (catches new spawns mid-effect)
+        if (this.slowActive) {
+            for (Enemy e : enemies) {
+                if (!e.isSlowed()) {
+                    e.applySpeedMultiplier(0.5);
+                    e.setSlowed(true);
+                }
+            }
             this.enemiesSlowed = true;
         }
 
         // Revert slow when duration expires
         if (this.slowActive && now >= this.slowEndTime) {
-            for (Enemy e : enemies) e.applySpeedMultiplier(2.0); // restore
+            for (Enemy e : enemies) {
+                if (e.isSlowed()) {
+                    e.applySpeedMultiplier(2.0); // restore only enemies that were actually slowed
+                    e.setSlowed(false);
+                }
+            }
             this.slowActive = false;
             this.enemiesSlowed = false;
         }
@@ -121,6 +130,5 @@ public class PowerUpManager {
         this.lastComboMilestone = 0;
         this.slowActive = false;
         this.doublePointsActive = false;
-        this.enemiesSlowed = false;
     }
 }

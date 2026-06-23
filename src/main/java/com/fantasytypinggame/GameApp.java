@@ -80,22 +80,22 @@ public class GameApp extends Application {
         Group gameRoot = new Group();
         Group loseRoot = new Group();
         Group winRoot = new Group();
-        Scene startScene = new Scene(menuRoot, 800, 600, Color.BEIGE);
+        Scene startScene = new Scene(menuRoot, 800, 600, Color.BLACK);
         Scene instructionScene = new Scene(
             instructionRoot,
             800,
             600,
-            Color.BEIGE
+            Color.BLACK
         );
         Scene difficultyScene = new Scene(
             difficultyRoot,
             800,
             600,
-            Color.BEIGE
+            Color.BLACK
         );
-        Scene gameScene = new Scene(gameRoot, 800, 600, Color.BEIGE);
-        Scene loseScene = new Scene(loseRoot, 800, 600, Color.LIGHTGRAY);
-        Scene winScene = new Scene(winRoot, 800, 600, Color.LIGHTGRAY);
+        Scene gameScene = new Scene(gameRoot, 800, 600, Color.BLACK);
+        Scene loseScene = new Scene(loseRoot, 800, 600, Color.BLACK);
+        Scene winScene = new Scene(winRoot, 800, 600, Color.BLACK);
 
         // Initialize game window and setup
         stage.setTitle("Fantasy Typing Game");
@@ -154,6 +154,12 @@ public class GameApp extends Application {
                                     enemy.getX() + 20,
                                     enemy.getY() - 15,
                                     "-1"
+                                )
+                            );
+                            lightningEffects.add(
+                                new LightningEffect(
+                                    enemy.getX() + 10,
+                                    enemy.getY() - 20
                                 )
                             );
                             if (enemy.isDefeated()) {
@@ -232,6 +238,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        startGameButton.setFocusTraversable(false);
         startGameButton.setOnAction(event -> {
             primaryStage.setScene(difficultyScene);
             gameState[0] = "DIFFICULTY SELECTION";
@@ -252,6 +259,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        menuInstructionsButton.setFocusTraversable(false);
         menuInstructionsButton.setOnAction(event -> {
             gameState[0] = "INSTRUCTIONS";
             primaryStage.setScene(instructionScene);
@@ -272,6 +280,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        exitButton.setFocusTraversable(false);
         exitButton.setOnAction(event -> {
             primaryStage.close();
         });
@@ -346,6 +355,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        instructBackButton.setFocusTraversable(false);
         instructBackButton.setOnAction(event -> {
             // Restart menu music when returning from How to Play to the main menu
             musicManager.playMenuMusic();
@@ -403,6 +413,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        startEasyGameButton.setFocusTraversable(false);
         startEasyGameButton.setOnAction(event -> {
             // Stop menu music when the actual game starts
             musicManager.stopMenuMusic();
@@ -436,6 +447,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        startMediumGameButton.setFocusTraversable(false);
         startMediumGameButton.setOnAction(event -> {
             // Stop menu music when the actual game starts
             musicManager.stopMenuMusic();
@@ -469,10 +481,10 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        startHardGameButton.setFocusTraversable(false);
         startHardGameButton.setOnAction(event -> {
             // Stop menu music when the actual game starts
             musicManager.stopMenuMusic();
-
             primaryStage.setScene(gameScene);
             castle.reset();
             waveManager.reset();
@@ -505,6 +517,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        difficultyBackToMenuButton.setFocusTraversable(false);
         difficultyBackToMenuButton.setOnAction(event -> {
             gameState[0] = "MENU";
             primaryStage.setScene(startScene);
@@ -525,6 +538,7 @@ public class GameApp extends Application {
                 "-fx-border-radius: 8;" +
                 "-fx-font-size: 11px;"
         );
+        pauseButton.setFocusTraversable(false);
         pauseButton.setOnAction(event -> {
             if (gameState[0].equals("PLAYING")) {
                 gameState[0] = "PAUSED";
@@ -546,6 +560,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        resumeButton.setFocusTraversable(false);
         resumeButton.setOnAction(event -> {
             resumeCountdown[0] = true;
             gameState[0] = "COUNTDOWN";
@@ -571,6 +586,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        pauseExitToMenuButton.setFocusTraversable(false);
         pauseExitToMenuButton.setOnAction(event -> {
             player.setInput("");
             gameState[0] = "MENU";
@@ -648,6 +664,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        winPlayAgainButton.setFocusTraversable(false);
         winPlayAgainButton.setOnAction(event -> {
             primaryStage.setScene(difficultyScene);
             gameState[0] = "DIFFICULTY SELECTION";
@@ -668,6 +685,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        winBackToMenuButton.setFocusTraversable(false);
         winBackToMenuButton.setOnAction(event -> {
             // Restart menu music when returning from victory screen to main menu
             musicManager.playMenuMusic();
@@ -747,6 +765,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        losePlayAgainButton.setFocusTraversable(false);
         losePlayAgainButton.setOnAction(event -> {
             primaryStage.setScene(difficultyScene);
             gameState[0] = "DIFFICULTY SELECTION";
@@ -767,6 +786,7 @@ public class GameApp extends Application {
                 "-fx-background-radius: 10;" +
                 "-fx-border-radius: 10;"
         );
+        loseBackToMenuButton.setFocusTraversable(false);
         loseBackToMenuButton.setOnAction(event -> {
             // Restart menu music when returning from defeat screen to main menu
             musicManager.playMenuMusic();
@@ -1061,6 +1081,8 @@ public class GameApp extends Application {
                 // Show game screen
                 if (gameState[0].equals("PLAYING")) {
                     gc.drawImage(background, 0, 0, 800, 600);
+                    gc.setFill(Color.rgb(0, 0, 0, 0.35));
+                    gc.fillRect(0, 0, 800, 600);
                     // Hide unnecessary button
                     pauseButton.setVisible(true);
                     resumeButton.setVisible(false);
@@ -1127,7 +1149,7 @@ public class GameApp extends Application {
                         28,
                         37
                     );
-                    gc.fillText("Score: " + player.getScore(), 28, 63);
+                    gc.fillText("Score: " + player.getScore(), 28, 68);
                     gc.fillText("Combo: " + player.getCombo(), 170, 37);
 
                     // Powerup display
@@ -1152,7 +1174,7 @@ public class GameApp extends Application {
 
                     gc.setFont(Font.font("Verdana", 16));
                     gc.setFill(Color.GOLD);
-                    gc.fillText("Power-Up: " + currentPowerUp, 170, 63);
+                    gc.fillText("Power-Up: " + currentPowerUp, 170, 68);
 
                     // HP bar
                     gc.setFill(Color.WHITESMOKE);
@@ -1172,15 +1194,16 @@ public class GameApp extends Application {
                     gc.strokeRoundRect(520, 24, 230, 16, 8, 8);
 
                     // Input box
+                    boolean dpActive = powerUpManager.isDoublePointsActive();
                     gc.setFill(Color.rgb(0, 0, 0, 0.55));
                     gc.fillRoundRect(220, 538, 360, 42, 14, 14);
-                    gc.setStroke(Color.rgb(255, 255, 255, 0.35));
+                    gc.setStroke(dpActive ? Color.rgb(255, 165, 50, 0.9) : Color.rgb(255, 255, 255, 0.35));
                     gc.strokeRoundRect(220, 538, 360, 42, 14, 14);
 
                     gc.setFont(Font.font("Verdana", 18));
-                    gc.setFill(Color.WHITESMOKE);
+                    gc.setFill(dpActive ? Color.rgb(255, 165, 50) : Color.WHITESMOKE);
                     gc.fillText("Word: ", 235, 566);
-                    gc.setFill(Color.AZURE);
+                    gc.setFill(dpActive ? Color.rgb(255, 165, 50) : Color.AZURE);
                     gc.fillText(player.getInput(), 300, 566);
 
                     // Castle block in game screen

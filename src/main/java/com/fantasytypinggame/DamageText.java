@@ -3,6 +3,7 @@ package com.fantasytypinggame;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 
 public class DamageText {
 
@@ -33,7 +34,7 @@ public class DamageText {
     public void render(GraphicsContext gc) {
         gc.save(); // preserve current gc state
         gc.setGlobalAlpha(this.opacity);
-        gc.setFont(Font.font("Arial", 14));
+        gc.setFont(Font.font("Arial", FontWeight.BOLD, 16));
         gc.setFill(Color.RED);
         gc.fillText(this.text, this.x, this.y);
         gc.restore(); // restore gc state so other renders are unaffected

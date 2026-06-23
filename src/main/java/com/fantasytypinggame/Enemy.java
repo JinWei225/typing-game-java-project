@@ -11,6 +11,7 @@ public abstract class Enemy {
     private int health;
     private int damage;
     private ArrayList<String> wordList = new ArrayList<String>();
+    private boolean slowed = false;
 
     Enemy(
         double x,
@@ -59,6 +60,14 @@ public abstract class Enemy {
 
     public void removeCurrentWord() {
         if (!this.wordList.isEmpty()) this.wordList.remove(0);
+    }
+
+    public boolean isSlowed() {
+        return this.slowed;
+    }
+
+    public void setSlowed(boolean slowed) {
+        this.slowed = slowed;
     }
 
     public void applySpeedMultiplier(double multiplier) {

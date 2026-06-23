@@ -64,8 +64,8 @@ public class Boss extends Enemy {
 
     @Override
     public void render(GraphicsContext gc) {
-        double drawWidth = 120;
-        double drawHeight = 120;
+        double drawWidth = 135;
+        double drawHeight = 135;
 
         if (dying) {
             deathAnimator.draw(gc, getX(), getY(), drawWidth, drawHeight);
@@ -78,7 +78,9 @@ public class Boss extends Enemy {
         String word = getCurrentWord();
         if (word != null) {
             gc.setFont(Font.font("Arial", FontWeight.BOLD, 18));
-            gc.setFill(Color.WHITE);
+            gc.setFill(
+                isSlowed() ? Color.rgb(100, 210, 255) : Color.rgb(255, 165, 50)
+            );
 
             Text temp = new Text(word);
             temp.setFont(gc.getFont());
