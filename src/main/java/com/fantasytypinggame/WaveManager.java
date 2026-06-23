@@ -45,7 +45,7 @@ public class WaveManager {
     }
 
     public boolean isFinalWaveCleared() {
-        return (this.waveNumber > this.totalWaveNumber && enemies.isEmpty());
+        return this.waveNumber > this.totalWaveNumber && enemies.isEmpty();
     }
 
     private ArrayList<String> getFastMobWord() {
@@ -180,7 +180,7 @@ public class WaveManager {
         int enemyIndex = 0;
 
         for (int i = 0; i < numBoss; i++) {
-            double y = 50 + spacing * (enemyIndex + 1);
+            double y = 80 + spacing * (enemyIndex + 1);
             enemies.add(
                 new Boss(
                     startX,
@@ -194,7 +194,7 @@ public class WaveManager {
             enemyIndex++;
         }
         for (int i = 0; i < numFast; i++) {
-            double y = 50 + spacing * (enemyIndex + 1);
+            double y = 80 + spacing * (enemyIndex + 1);
             enemies.add(
                 new FastMob(
                     startX,
@@ -208,7 +208,7 @@ public class WaveManager {
             enemyIndex++;
         }
         for (int i = 0; i < numSmall; i++) {
-            double y = 50 + spacing * (enemyIndex + 1);
+            double y = 80 + spacing * (enemyIndex + 1);
             enemies.add(
                 new SmallMobs(
                     startX,

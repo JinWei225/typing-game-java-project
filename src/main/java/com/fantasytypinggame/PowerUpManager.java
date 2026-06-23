@@ -14,9 +14,8 @@ public class PowerUpManager {
     private static final int COMBO_INTERVAL = 10; // Award power-up every 10 combos
     private static final long EFFECT_DURATION_NS = 10_000_000_000L; // 10 seconds in nanoseconds
 
-    private ArrayList<PowerUpType> storedPowerUps = new ArrayList<
-        PowerUpType
-    >();
+    private ArrayList<PowerUpType> storedPowerUps =
+        new ArrayList<PowerUpType>();
     private int lastComboMilestone = 0;
 
     // Timed effect state

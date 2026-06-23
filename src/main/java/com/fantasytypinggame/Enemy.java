@@ -74,6 +74,16 @@ public abstract class Enemy {
         if (this.health < 0) this.health = 0;
     }
 
+    public void beginDeath() {}
+
+    public boolean isDying() {
+        return false;
+    }
+
+    public boolean isDeathFinished() {
+        return false;
+    }
+
     public boolean isDefeated() {
         if (this.health == 0) {
             return true;

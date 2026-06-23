@@ -34,13 +34,15 @@ public class GameApp extends Application {
                 enemy.removeCurrentWord();
                 enemy.takeDamage(1);
                 player.setInput("");
+                int point = enemy.onDeath();
+                if (powerUpManager.isDoublePointsActive()) {
+                    point *= 2;
+                }
+                player.addScore(point);
                 damageTexts.add(
                     new DamageText(enemy.getX() + 20, enemy.getY() - 15, "-1")
                 );
                 if (enemy.isDefeated()) {
-                    int point = enemy.onDeath();
-                    if (powerUpManager.isDoublePointsActive()) point *= 2;
-                    player.addScore(point);
                     player.increaseCombo();
                     powerUpManager.checkCombo(player.getCombo());
                     iterator.remove();
@@ -135,11 +137,6 @@ public class GameApp extends Application {
                                 )
                             );
                             if (enemy.isDefeated()) {
-                                int point = enemy.onDeath();
-                                if (powerUpManager.isDoublePointsActive()) {
-                                    point *= 2;
-                                }
-                                player.addScore(point);
                                 player.increaseCombo();
                                 powerUpManager.checkCombo(player.getCombo());
                                 iterator.remove();

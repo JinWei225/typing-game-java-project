@@ -2,10 +2,17 @@ package com.fantasytypinggame;
 
 import java.util.ArrayList;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 
 public class SmallMobs extends Enemy {
+
+    private SpriteAnimator walkAnimator;
+    private SpriteAnimator deathAnimator;
+    private boolean dying = false;
 
     SmallMobs(
         double x,
@@ -16,15 +23,70 @@ public class SmallMobs extends Enemy {
         ArrayList<String> wordList
     ) {
         super(x, y, pace, health, damage, wordList);
+
+        Image walkSheet = new Image(
+            getClass().getResourceAsStream("/assets/smallmob.png")
+        );
+
+        Image deathSheet = new Image(
+            getClass().getResourceAsStream("/assets/smallmob_die.png")
+        );
+
+        walkAnimator = new SpriteAnimator(walkSheet, 200, 200, 4, 11, 8);
+        deathAnimator = new SpriteAnimator(
+            deathSheet,
+            200,
+            200,
+            6,
+            21,
+            2,
+            false
+        );
+    }
+
+    @Override
+    public void beginDeath() {
+        if (!dying) {
+            dying = true;
+            deathAnimator.reset();
+        }
+    }
+
+    @Override
+    public boolean isDying() {
+        return dying;
+    }
+
+    @Override
+    public boolean isDeathFinished() {
+        return dying && deathAnimator.isFinished();
     }
 
     @Override
     public void render(GraphicsContext gc) {
-        gc.setFill(Color.GREEN);
-        gc.fillRect(getX(), getY(), 50, 80);
-        gc.setFont(Font.font("Arial", 14));
-        gc.setFill(Color.RED);
-        gc.fillText(getWordList().get(0), getX(), getY() - 10);
+        double drawWidth = 98;
+        double drawHeight = 98;
+
+        if (dying) {
+            deathAnimator.draw(gc, getX(), getY(), drawWidth, drawHeight);
+            deathAnimator.update();
+        } else {
+            walkAnimator.draw(gc, getX(), getY(), drawWidth, drawHeight);
+            walkAnimator.update();
+        }
+
+        String word = getCurrentWord();
+        if (word != null) {
+            gc.setFont(Font.font("Arial", FontWeight.BOLD, 16));
+            gc.setFill(Color.WHITE);
+
+            Text temp = new Text(word);
+            temp.setFont(gc.getFont());
+            double textX =
+                getX() + (drawWidth - temp.getLayoutBounds().getWidth()) / 2;
+
+            gc.fillText(word, textX, getY() - 8);
+        }
     }
 
     @Override
